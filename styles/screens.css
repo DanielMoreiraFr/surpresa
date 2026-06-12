@@ -257,7 +257,7 @@
 }
 
 /* Tela final: "Eu te amo, [apelido]" */
-.moment-love { background: red !important; }
+.moment-love { background: var(--bg) !important; }
 
 .love-screen {
   text-align: center;
