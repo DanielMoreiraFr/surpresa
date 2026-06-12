@@ -1,0 +1,128 @@
+/* ============================================================
+   base.css — Variáveis, reset, tipografia, botões, utilitários
+   ============================================================ */
+
+:root {
+  /* ── Backgrounds ─────────────────────────────────────── */
+  --bg:          #F7F8F3;   /* off-white com leve toque oliva */
+  --bg-alt:      #F1F4EA;   /* variação um pouco mais verde */
+
+  /* ── Verde Oliva (cor principal) ─────────────────────── */
+  --olive:       #6B7C4A;   /* oliva médio — botões, destaques */
+  --olive-deep:  #4E5C34;   /* oliva escuro — hover, ênfase */
+  --olive-pale:  #E4EAD4;   /* oliva muito claro — fundos suaves */
+
+  /* ── Azul Real (cor secundária) ──────────────────────── */
+  --blue:        #2C5F9E;   /* azul real — datas, accents */
+  --blue-light:  #4A7BC4;   /* azul mais claro — hover do blue */
+  --blue-pale:   #DDE8F5;   /* azul quase branco — fundos */
+
+  /* ── Texto ───────────────────────────────────────────── */
+  --text:        #252A1A;   /* quase preto com toque oliva */
+  --text-muted:  #626B4A;   /* oliva médio-escuro */
+  --text-light:  #9BA882;   /* oliva claro — hints, footer */
+
+  /* ── Bordas e outros ─────────────────────────────────── */
+  --white:       #FFFFFF;
+  --border:      #D0D9B8;   /* borda oliva clara */
+
+  /* ── Aliases para não quebrar referências no CSS ─────── */
+  /* (os outros arquivos usam --rose, --rose-deep, --rose-pale) */
+  --rose:        var(--olive);
+  --rose-deep:   var(--olive-deep);
+  --rose-pale:   var(--olive-pale);
+
+  /* ── Sombras ─────────────────────────────────────────── */
+  --shadow-sm:        0 2px 12px rgba(80, 100, 50, 0.10);
+  --shadow-md:        0 6px 30px rgba(80, 100, 50, 0.14);
+  --shadow-lg:        0 16px 50px rgba(40,  60, 20, 0.16);
+  --shadow-polaroid:  0 6px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07);
+
+  /* ── Tipografia ──────────────────────────────────────── */
+  --font-body: 'Poppins', sans-serif;
+  --font-hand: 'Caveat', cursive;
+
+  /* ── Geometria ───────────────────────────────────────── */
+  --radius:    14px;
+  --radius-sm: 8px;
+
+  /* ── Transição padrão ────────────────────────────────── */
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 0.65s;
+}
+
+/* ---------- RESET ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { height: 100%; font-size: 15px; }
+
+body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- UTILITÁRIOS ---------- */
+.handwritten { font-family: var(--font-hand); }
+.is-hidden   { display: none !important; }
+
+/* ---------- BOTÕES ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 2rem;
+  background: var(--olive);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--olive-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  outline: none;
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1.5px solid var(--olive);
+  color: var(--olive-deep);
+  padding: 0.6rem 1.8rem;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.03em;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  background: var(--olive);
+  color: white;
+  outline: none;
+}

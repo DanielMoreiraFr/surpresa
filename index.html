@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- EDITAR: troque o título da aba se quiser -->
+  <title>Para Nina 💕</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <!-- CSS — ordem importa -->
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/screens.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/animations.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       TELA 1 — LOGIN
+       Apelidos e textos vêm de js/config.js
+       ═══════════════════════════════════════════════ -->
+  <section id="screen-login" class="screen active" role="main">
+    <div class="login-card">
+      <p class="login-eyebrow">12 · 06</p>
+      <h1 class="login-title handwritten">Olá, como quer ser chamada?</h1>
+      <p class="login-hint">Escolha o apelido que mais combina com você hoje </p>
+
+      <div class="select-wrapper">
+        <!-- Opções preenchidas por js/main.js a partir de config.js -->
+        <select id="nickname-select" aria-label="Escolha seu apelido">
+          <option value="" disabled selected>— escolha um apelido —</option>
+        </select>
+      </div>
+
+      <button class="btn-primary" id="btn-login">Entrar</button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TELA 2 — CARTA
+       Texto da carta em js/config.js → CONFIG.carta
+       ═══════════════════════════════════════════════ -->
+  <section id="screen-letter" class="screen" aria-hidden="true">
+    <div class="letter-card">
+      <span class="letter-icon" aria-hidden="true">✉</span>
+      <p class="letter-salutation">
+        Para <span id="letter-name" class="handwritten letter-nickname"></span>,
+      </p>
+      <!-- Parágrafos injetados por js/main.js a partir de config.js -->
+      <div class="letter-body" id="letter-body"></div>
+      <button class="btn-primary" id="btn-start-story">Começar nossa história</button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TELA 3 — TIMELINE (scroll snap)
+       Momentos gerados dinamicamente por js/timeline.js
+       ═══════════════════════════════════════════════ -->
+  <section id="screen-timeline" class="screen" aria-hidden="true">
+    <div class="timeline-scroll" id="timeline-scroll">
+      <!-- js/timeline.js injeta os 37 momentos + tela final aqui -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TELA 4 — CONTEÚDO FINAL (músicas + pedidos)
+       ═══════════════════════════════════════════════ -->
+  <section id="screen-content" class="screen screen-scrollable" aria-hidden="true">
+
+    <div class="content-section">
+      <p class="section-eyebrow handwritten">para ouvir pensando em você</p>
+      <h2 class="section-title">músicas que me lembram de você</h2>
+      <p class="section-sub">cada uma guarda um pedacinho seu</p>
+      <button class="btn-primary" id="btn-open-music">ver músicas 🎵</button>
+    </div>
+
+    <div class="content-section content-section--alt">
+      <p class="section-eyebrow handwritten">o que seu coração quiser</p>
+      <h2 class="section-title">me faz um pedido</h2>
+      <p class="section-sub">pode pedir qualquer coisa.<br />prometo que vou tentar de verdade.</p>
+      <textarea
+        id="pedido-text"
+        class="pedido-textarea"
+        placeholder="escreva seu pedido aqui... 🌸"
+        rows="4"
+        aria-label="Escreva seu pedido"
+      ></textarea>
+      <button class="btn-primary" id="btn-send-pedido">enviar pedido 💌</button>
+    </div>
+
+    <footer class="site-footer"></footer>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       ELEMENTOS FIXOS (aparecem após o login)
+       ═══════════════════════════════════════════════ -->
+
+  <!-- Botão flutuante: Gerador de Chamego -->
+  <button id="chamego-fab" class="chamego-fab is-hidden"
+    aria-label="Gerador de chamego" title="Chamego ✨">🌸</button>
+
+  <!-- Balão com frase de chamego -->
+  <div id="chamego-popup" class="chamego-popup is-hidden"
+    role="status" aria-live="polite">
+    <p id="chamego-text" class="chamego-phrase"></p>
+  </div>
+
+  <!-- Contador discreto fixo no rodapé do viewport -->
+  <div id="fixed-counter" class="fixed-counter is-hidden" aria-hidden="true">
+    <span id="fixed-counter-text"></span>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL — MÚSICAS
+       Lista gerada por js/modals.js a partir de config.js
+       ═══════════════════════════════════════════════ -->
+  <div id="music-modal" class="modal-overlay is-hidden"
+    role="dialog" aria-modal="true" aria-label="Músicas que me lembram de você">
+    <div class="modal-box">
+      <button class="modal-close" id="btn-close-music" aria-label="Fechar">✕</button>
+      <h3 class="modal-title handwritten">músicas que me lembram de você</h3>
+      <!-- Lista injetada por js/modals.js -->
+      <ul class="music-list" id="music-list" role="list"></ul>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MODAL — PEDIDO
+       ═══════════════════════════════════════════════ -->
+  <div id="pedido-modal" class="modal-overlay is-hidden"
+    role="dialog" aria-modal="true" aria-label="Seu pedido">
+    <div class="modal-box modal-box--pedido">
+      <button class="modal-close" id="btn-close-pedido" aria-label="Fechar">✕</button>
+      <div class="pedido-aviso">
+        <span aria-hidden="true">📱</span>
+        <p>Tire um print e me mande essa imagem para poder completar o pedido, com muito amor! ❤️</p>
+      </div>
+      <div class="pedido-frame">
+        <span class="pedido-frame-label handwritten">meu pedido:</span>
+        <p id="pedido-display" class="pedido-display-text"></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Container dos corações flutuantes (easter egg) -->
+  <div id="hearts-container" aria-hidden="true"></div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS — ordem obrigatória
+       config.js deve ser o primeiro (outros dependem dele)
+       ═══════════════════════════════════════════════ -->
+  <script src="js/config.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/chamego.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/easter-egg.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
